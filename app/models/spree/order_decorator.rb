@@ -16,7 +16,8 @@ Spree::Order.instance_eval do
       column_headers = order_column_names + address_column_names
       csv << column_headers
       all.each do |order|
-        values = order.attributes.values_at(*order_column_names) + order.ship_address.attributes.values_at(*address_column_names)
+        values = order.attributes.values_at(*order_column_names)
+        values += order.ship_address.attributes.values_at(*address_column_names) if order.ship_address
         csv << values
       end
     end
