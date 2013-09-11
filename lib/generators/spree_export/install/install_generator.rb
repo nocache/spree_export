@@ -10,8 +10,10 @@ module SpreeExport
       end
 
       def add_stylesheets
-        inject_into_file 'app/assets/stylesheets/store/all.css', " *= require store/spree_export\n", :before => /\*\//, :verbose => true
-        inject_into_file 'app/assets/stylesheets/admin/all.css', " *= require admin/spree_export\n", :before => /\*\//, :verbose => true
+        inject_into_file Dir[File.join(Rails.root,'app/assets/stylesheets/store/all.css*')].first,
+          " *= require store/spree_export\n", :before => /\*\//, :verbose => true
+        inject_into_file Dir[File.join(Rails.root,'app/assets/stylesheets/admin/all.css*')].first,
+          " *= require admin/spree_export\n", :before => /\*\//, :verbose => true
       end
 
       def add_migrations
